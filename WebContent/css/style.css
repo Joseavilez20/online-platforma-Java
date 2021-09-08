@@ -1,0 +1,51 @@
+/* Your custom styles */
+html,
+body,
+header,
+
+
+#intro {
+    height: 100%;
+}
+
+#intro {
+    background: url("../img/bg.gif")no-repeat center center fixed;
+    background-image: url("../img/bg.gif");
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat-x: no-repeat;
+    background-repeat-y: no-repeat;
+    background-attachment: fixed;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: initial;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+.top-nav-collapse {
+    background-color: #24355C;
+}
+.avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+    
+
+@media (max-width: 768px) {
+  .navbar:not(.top-nav-collapse) {
+    background: #24355C;
+  }
+}
+@media (min-width: 800px) and (max-width: 850px) {
+  .navbar:not(.top-nav-collapse) {
+    background: #24355C;
+  }
+}

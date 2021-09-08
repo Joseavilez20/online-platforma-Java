@@ -1,0 +1,75 @@
+<%@page import="entidades.Curso"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="controladores.ServletCurso"%>
+<%@page import="controladores.ServletPersona"%>
+<%@page import="entidades.Persona"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!Doctype html>
+	<html>
+     <head>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta charset="utf-8">
+        <link href="css/bootstrap.css" rel="stylesheet">
+         <!--link href="css/bootstrap.min.css" rel="stylesheet"-->
+          <link href="css/mdb.css" rel="stylesheet">
+           <link href="css/mdb.min.css" rel="stylesheet">
+             <link href="css/style.css" rel="stylesheet">
+             <link href="css/fontawesome-all.css"  rel="stylesheet">
+          
+        <title> Cursos online de Hacking Etico-Hackliux</title>
+        
+        
+     </head>
+<body>
+  
+ 
+   <navar class="navbar navbar-expand-lg navbar-dark   fixed-top  " style="background-color: #000000">
+       <a class="navbar-brand" href="inicio"><em>HACKLIUX</em></a>
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+   <div class="navbar-collapse collapse" id="navbarCollapse" style="">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item ">
+            <a class="nav-link" href="inicio">Inicio<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Cursos">Cursos</a>
+          </li>
+        </ul>
+       <div class="navbar-nav">
+           
+<!--        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+         </form>-->
+           
+            <c:if test="${not empty user.idUser}">
+                   
+                <a class="" style="color: white" href="index.jsp">
+               <img  src="img/face.png" alt="Charly face"  class="avatar"  ><c:out value="${not empty persona ? persona[0]: user.idUser}"/>
+          </a>
+          <a class="nav-item nav-link text-light" href="logout">Logout</a>
+          </c:if>
+          
+          
+          
+         
+          
+           <c:if test="${!not empty user.idUser}">
+            <a data-toggle="modal" data-target="#exampleModal" class="nav-item nav-link text-light" href="#">Login</a>
+            <a   data-toggle="modal" data-target="#exampleModal2"  class="nav-item nav-link text-light" href="#">registrar</a>
+        </c:if>
+      
+    </div>
+       
+      
+      </div>
+ 
+</navar>
+        
+<!--VIENE IMG DE HEADER INTRO-->
+    <!--/header-->

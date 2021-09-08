@@ -1,0 +1,39 @@
+<div class="modal fade " id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title text-light" id="exampleModalLabel">REGISTRARSE</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        
+        <form   id="form2" method="POST">
+      <div class="modal-body">
+                
+          <div class="form-group">
+    <label class="text-light" for="exampleInputEmail1">Email address</label>
+    <input type="email"  class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label class="text-light" for="exampleInputPassword1">Ingresar contraseña</label>
+    <input autocomplete="new-password" type="password"  class="form-control" id="InputPassword1" placeholder="Ingresar contraseña">
+  </div>
+   <div class="form-group">
+    <label class="text-light" for="exampleInputPassword2">Ingresar cotraseña nuevamente</label>
+    <input  autocomplete="new-password" type="password" class="form-control" id="InputPassword2" placeholder="Ingresar contraseña nuevamente">
+  </div>
+       <span class="text-danger" id="msj2"></span>   
+           
+          
+        
+      </div>
+      <div class="modal-footer">
+        
+        <button type="submit" id="btnSubmit3" class="btn btn-primary">Submit</button>
+      </div>
+        </form>
+    </div>
+  </div>
+</div>

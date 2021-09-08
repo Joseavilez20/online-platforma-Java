@@ -1,0 +1,221 @@
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<div class="content-wrapper">
+
+  <section class="content-header">
+    
+    <h1>
+      
+      Cargar  contenido  de ${curso.nombre}
+    
+    </h1>
+
+    <ol class="breadcrumb">
+      
+      <li><a href="index.jsp"><i class="fa fa-dashboard"></i> Home</a></li>
+      
+      
+    
+    </ol>
+
+  </section>
+
+  <section class="content">
+
+    <div class="box">
+
+      <div class="box-body">
+    
+        <form method="post"  enctype="multipart/form-data"   name="form1" id="form1">
+            <div class="form-group mb-2 form-inline">
+             <select class="form-control input-lg" style="width:30%" name="elegirtema" id="elegirtema">
+                  
+                  <option value="">Selecionar tema</option>
+                   <c:forEach items="${temas}" var="s">
+                  <option value="<c:out value="${s.idTema}"/>"><c:out value="${s.nombre}"/></option>
+                  </c:forEach>
+
+                </select>
+               <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalAgregarTema">CREAR TEMA</button>
+                
+            </div>
+             <small id="emailHelp" class="form-text text-muted">El contenido debe ir en orden según los temas que valla agregando </small>
+             
+            
+            <input name="idCurso"  id="idCurso" value="${idcurso}" hidden>
+            <div class="form-group  mb-2">
+
+              <label for="formFile">Cargar archivos</label>
+              <input type="file"  id="files" name="files" multiple>
+
+            </div>
+              
+          <br/> <br/>
+
+
+            <div class="row" id="selectedFiles"></div>
+
+
+            <button type="submit" id="btnSubmit5"   class="btn btn-success btn-lg">GUARDAR</button>
+        </form>
+      
+      </div>
+
+    </div>
+
+  </section>
+            <div class="content">
+       <div class="blog-post">
+            
+            <h2>Contenido </h2>
+            <hr>
+            
+           
+            <div class="list-group">
+                
+                <jsp:useBean id = "servletContenido" class = "controladores.ServletContenido" />  
+                <c:set var="cont" value="1"/>
+               <div class="panel-group">
+                <div class="panel panel-default">
+                   <c:forEach  items="${temasCurso}" var="t">  
+                  <div class="panel-heading " style=" border-bottom: 2px solid #8691aa;">
+                    <h4 style="overflow:hidden" class="panel-title">
+                      <a data-toggle="collapse" href="#collapse${cont}">${t.nombre}  <button style="float:right;" class="btn btn-default btnEliminarTemaCurso"  idTema="<c:out value="${t.idTema}"/>" idCurso="<c:out value="${curso.idCurso}"/>"><i class="fas fa-times"></i></i></button>
+                      </a>
+                       
+                    </h4>
+                    
+                  </div>
+                    
+                
+                  
+                 <c:set var = "objContenido"  value = "${servletContenido.buscarContenidosdelTema(curso.idCurso,t.idTema)}"/>
+                 <!--c:out value = "{objPersona.getNombre()}" /-->   
+                 
+                  <div id="collapse${cont}" class="panel-collapse collapse">
+                    <ul class="list-group">
+                        <c:set var="cont2" value="1" />
+                        <c:forEach  items="${objContenido}" var="v">
+                          <li style="overflow:hidden" class="list-group-item" > <a style="display:inline-block" href="ServletContenido?action=verVideo&idContenido=<c:out value="${v.idContenido}"/>&idCurso=<c:out value="${curso.idCurso}"/>" class="list-group-item list-group-item-action" ><!--disabled-->
+                          <c:set var="dateParts" value="${fn:split(v.url, '.')}" />
+
+
+                                <c:choose>
+         
+                                 <c:when test = "${dateParts[1] == 'mp4'}">
+                                      <c:set var="icon" value="far fa-play-circle" />
+                                 </c:when>
+                                 <c:when test = "${dateParts[1] == 'pdf'}">
+                                    <c:set var="icon" value="fas fa-book" /> 
+                                 </c:when>
+                                    
+                                    <c:otherwise>
+                                         <c:set var="icon" value="fas fa-image" />
+                                    </c:otherwise>
+                                  
+                                  </c:choose>
+                                  <i class="${icon}"></i> ${cont2}.<c:out value="${v.titulo}"/>
+                         
+                              </a><button style="float:right;" class="btn btn-danger btnEliminarContenidoCurso" ruta="${v.url}" idContenido="${v.idContenido}" idTema="<c:out value="${t.idTema}"/>" idCurso="<c:out value="${curso.idCurso}"/>"><i class="fas fa-trash-alt fa-xs"></i></button>
+                         
+                          </li>
+                          
+                           <c:set var="cont2" value="${cont2+1}"/>
+                        </c:forEach>
+                    </ul>
+                    
+                  </div>
+                     <c:set var="cont" value="${cont+1}"/>
+                     
+                   </c:forEach>
+                
+                </div>
+              </div>
+               
+               
+            </div>
+
+ 
+          </div>
+        </div>
+
+</div>
+
+            
+            
+
+<!--=====================================
+MODAL AGREGAR TEMA
+======================================-->
+
+<div id="modalAgregarTema" class="modal fade" role="dialog" >
+  
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <form role="form" method="post" >
+
+<!--          =====================================
+        CABEZA DEL MODAL
+        ======================================-->
+
+        <div class="modal-header" style="background:#3c8dbc; color:white">
+
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <h4 class="modal-title">Agregar tema</h4>
+
+        </div>
+
+<!--        =====================================
+        CUERPO DEL MODAL
+        ======================================-->
+
+        <div class="modal-body">
+
+          <div class="box-body">
+
+<!--             ENTRADA PARA EL NOMBRE -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="nuevoTema"  id="nuevoTema" placeholder="Ingresar nombre" required>
+               
+              </div>
+                 <span class="text-danger" id="msj6"></span>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+<!--        =====================================
+        PIE DEL MODAL
+        ======================================-->
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+
+          <button type="button" class="btn btn-primary btnAgregarTema">Guardar</button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+                    
+

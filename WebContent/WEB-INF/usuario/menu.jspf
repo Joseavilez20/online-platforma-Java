@@ -1,0 +1,38 @@
+   <!----row--->
+   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+         
+           <div class="card  mb-4">
+  <div class="card-header">
+    Sobre mi ${user.rol}
+    <a href="perfil" >
+    <i class="fas fa-pen-square fa-2x fa-pull-right"></i>
+    </a>
+  </div>
+  <div class="card-body">
+      
+      <p class="card-text "> </p><c:out value="${not empty persona ? persona[2]: 'No dato'}"/> 
+     
+  </div>
+          
+</div>
+  
+<div class="card  mb-4">
+  <div class="card-header">
+    Cambiar contraseña 
+    <a href="cambiarPass" >
+    <i class="fas fa-pen-square fa-2x fa-pull-right"></i>
+    </a>
+  </div>
+  <div class="card-body">
+   
+    <p class="card-text"> ************</p>
+    
+  </div>
+          
+</div>
+        </div>
+    
+
+  

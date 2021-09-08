@@ -1,0 +1,28 @@
+ <main class="mt-5">
+        <div class="container" >
+             <section id="best-features" class="text-center">
+
+                <!-- Heading -->
+                <h2 class="mb-5 font-weight-bold">Haking Etico</h2>
+
+                <!--Grid row-->
+                <div class="row d-flex justify-content-center mb-4">
+
+                    <!--Grid column-->
+                    <div class="">
+
+                        <!-- Description -->
+                        <p class="grey-text lead">Hacking Etico es una forma de referirse al acto de una persona usar sus conocimientos de informatica y seguridad para realizar pruebas en redes y encontrar vulnerabilidades, para luego reportarlas y que se tomen medidas, sin hacer daño. 
+                            La idea es tener el conocimiento de cuales elementos dentro de una red son vulnerables y corregirlo antes que ocurra hurto informacion, por ejemplo. 
+                            Estas pruebas se llaman "pentests" o "penetration tests" en ingles. En español se conocen como "pruebas de penetracion", en donde se intenta de multiples formas burlar la seguridad de la red para robar informacion sensitiva una organizacion, para luego reportarlo a dicha organizacion y asi 												mejorar su seguridad. 
+                            Se sugiere a empresas que vayan a contratar los servicios de una empresa que ofrezca el servicio de hacking etico, que la misma sea certificada por entidades u organizaciones con un buen grado de reconocimiento a nivel mundial. 
+                            Las personas que hacen estas pruebas pueden llegar a ver informacion confidencial, por lo que cierto grado de confianza con consultor es recomendado. Mas info. en la pagina de SOLUTECSA, empresa que hace hacking etico.</p>
+
+                    </div>
+                    <!--Grid column-->
+
+                </div>
+     
+           </div>
+
+        </main>

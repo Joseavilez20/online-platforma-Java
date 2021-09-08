@@ -1,0 +1,39 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page import="entidades.Contenido"%>
+
+<c:set var="dateParts" value="${fn:split(contenido.url, '.')}" />
+
+
+<c:choose>
+         
+         <c:when test = "${dateParts[1] == 'mp4'}">
+            <div class="container-fluid">
+            <video width="900" controls poster="img/hackliuk_1.png">
+              <source src="${contenido.url}" type="video/mp4">
+              <source src="mov_bbb.ogg" type="video/ogg">
+              Your browser does not support HTML5 video.
+            </video>
+            </div>
+         </c:when>
+         
+         <c:when test = "${dateParts[1] == 'pdf'}">
+             <div class="container-fluid">
+           <div style="position: relative; width: 800px; height: 700px; overflow:hidden">
+            <object width="700" height="600" data="${contenido.url}" type="application/pdf">
+             <embed width="700" height="600" src="${contenido.url}" type="application/pdf" /> no soporta object
+           </object>
+        </div>
+             </div>
+         </c:when>
+            
+         
+         <c:otherwise>
+               <div class="container-fluid">
+             <img  style="" width="600" height="400" src="${contenido.url}" class="img-fluid" alt="Responsive image" >
+               </div>
+         </c:otherwise>
+      </c:choose>
+
+  
+<!--   -->

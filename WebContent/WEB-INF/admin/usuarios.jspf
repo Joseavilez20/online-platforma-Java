@@ -1,0 +1,432 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<div class="content-wrapper">
+
+  <section class="content-header">
+    
+    <h1>
+      
+      Administrar usuarios
+    
+    </h1>
+
+    <ol class="breadcrumb">
+      
+      <li><a href="index.jsp"><i class="fa fa-dashboard"></i> Home</a></li>
+      
+      <li class="active">Administrar usuarios</li>
+    
+    </ol>
+
+  </section>
+
+  <section class="content">
+
+    <div class="box">
+
+      <div class="box-header with-border">
+  
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarUsuario">
+          
+          Agregar usuario
+
+        </button>
+       
+
+
+      </div>
+
+      <div class="box-body">
+    
+        
+       <table class="table table-bordered table-striped dt-responsive tablas">
+         
+        <thead>
+         
+         <tr>
+           
+           <th style="width:10px">#</th>
+           <th>Nombre</th>
+           <th>Apellido</th>
+           <th>Acerca</th>
+           <th>Email</th>
+           <th>Password</th>
+           <th>Rol</th>
+           <th>Acciones</th>
+
+         </tr> 
+
+        </thead>
+
+        <tbody>
+        <c:set var="cont" value="1"/>
+        <c:forEach items="${personas}" var="s">
+          <tr>
+            <td><c:out value="${cont}"/></td>
+            <td ><c:out value="${s.nombre}" /></td>
+            <td><c:out value="${s.apellido}" /></td>
+            <td><c:out value="${s.acerca}" /></td>   
+            <jsp:useBean id = "servletUsuario" class = "controladores.ServletUsuario_login" /> 
+            <td><c:out value="${servletUsuario.buscarUsuario(s.idUser).getEmail()}" /></td>
+             <td><c:out value="${servletUsuario.buscarUsuario(s.idUser).getPassword()}" /></td>
+              <td><c:out value="${servletUsuario.buscarUsuario(s.idUser).getRol()}" /></td>
+            
+            
+            <td>
+
+              <div class="btn-group">
+                  
+                 
+              <button class="btn btn-warning btnEditarUsuario " data-toggle="modal" data-target="#modalEditarUsuario" idUsuario="<c:out value="${s.idUser}"/>"><i class="fas fa-edit fa-xs"></i></button>
+               <button class="btn btn-danger btnEliminaUsuario" idUsuario="<c:out value="${s.idUser}"/>"><i class="fas fa-trash-alt fa-xs"></i></button>
+
+              </div>  
+
+            </td>
+
+          </tr>
+
+           <c:set var="cont" value="${cont+1}"/>
+             
+</c:forEach>
+        </tbody>
+
+       </table>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+<!--=====================================
+MODAL AGREGAR USUARIO
+======================================-->
+
+<div id="modalAgregarUsuario" class="modal fade" role="dialog">
+  
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <form role="form" method="post" ><!-- enctype="multipart/form-data"-->
+
+<!--          =====================================
+        CABEZA DEL MODAL
+        ======================================-->
+
+        <div class="modal-header" style="background:#3c8dbc; color:white">
+
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <h4 class="modal-title">Agregar usuario</h4>
+
+        </div>
+
+<!--        =====================================
+        CUERPO DEL MODAL
+        ======================================-->
+
+        <div class="modal-body">
+
+          <div class="box-body">
+
+<!--             ENTRADA PARA EL NOMBRE -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" id="nuevoNombre" placeholder="Ingresar nombre" required>
+                
+              </div>
+
+            </div>
+
+
+    <!--  ENTRADA PARA EL APELLIDO -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg"  id="nuevoApellido" placeholder="Ingresar apellido" required>
+
+              </div>
+
+            </div>
+        <!--  ENTRADA PARA EL ACERCA -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg"  id="nuevoAcerca" placeholder="Acerca de ti" required>
+
+              </div>
+
+            </div>
+
+<!--             ENTRADA PARA EL EMAIL-->
+
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-address-card"></i></span> 
+
+                <input   type="email" class="form-control input-lg"   id="nuevoEmail" placeholder="Ingresar email" required>
+
+              </div>
+
+            </div>
+       
+
+<!--             ENTRADA PARA LA CONTRASEÑA -->
+
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span> 
+
+                <input autocomplete="new-password" type="password" class="form-control input-lg"  id="nuevoPassword" placeholder="Ingresar contrase�a" required>
+                
+              </div>
+
+            </div>
+
+<!--             ENTRADA PARA SELECCIONAR SU PERFIL -->
+
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-users"></i></span> 
+
+                <select class="form-control input-lg" id="nuevoPerfil">
+                  
+                  <option value="">Selecionar perfil</option>
+
+                  <option value="admin">Administrador</option>
+
+                  <option value="estudiante">Estudiante</option>
+
+               
+
+                </select>
+
+              </div>
+
+            </div>
+<!--
+             ENTRADA PARA SUBIR FOTO -->
+<!--
+             <div class="form-group">
+              
+              <div class="panel">SUBIR FOTO</div>
+
+              <input type="file" id="nuevaFoto" name="nuevaFoto">
+
+              <p class="help-block">Peso máximo de la foto 200 MB</p>
+
+              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail" width="100px">
+
+            </div>-->
+
+          </div>
+
+        </div>
+
+<!--        =====================================
+        PIE DEL MODAL
+        ======================================-->
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+
+          <button type="button" class="btn btn-primary btnAgregarUsuario">Guardar</button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!--=====================================
+MODAL MODIFICAR USUARIO
+======================================-->
+
+<div id="modalEditarUsuario" class="modal fade" role="dialog">
+  
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <form role="form" method="post" ><!-- enctype="multipart/form-data"-->
+
+<!--          =====================================
+        CABEZA DEL MODAL
+        ======================================-->
+
+        <div class="modal-header" style="background:#3c8dbc; color:white">
+
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <h4 class="modal-title">Modificar usuario</h4>
+
+        </div>
+
+<!--        =====================================
+        CUERPO DEL MODAL
+        ======================================-->
+
+        <div class="modal-body">
+
+          <div class="box-body">
+
+<!--             ENTRADA PARA EL NOMBRE -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg"  id="editarNombre" required>
+                 <input type="hidden"  id="editarIdUser" >
+
+              </div>
+
+            </div>
+
+    <!--  ENTRADA PARA EL APELLIDO -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg"  id="editarApellido" required>
+
+              </div>
+
+            </div>
+        <!--  ENTRADA PARA EL ACERCA -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg"  id="editarAcerca" required>
+
+              </div>
+
+            </div>
+
+<!--             ENTRADA PARA EL EMAIL-->
+
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-address-card"></i></span> 
+
+                <input   type="email" class="form-control input-lg"   id="editarEmail" required>
+
+              </div>
+
+            </div>
+
+<!--             ENTRADA PARA LA CONTRASEÑA -->
+
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span> 
+
+                <input  autocomplete="new-password" type="password" class="form-control input-lg"   id="editarPassword" required>
+                 <input  autocomplete="new-password" type="password"    id="myPassword" hidden >
+
+              </div>
+
+            </div>
+
+<!--             ENTRADA PARA SELECCIONAR SU PERFIL -->
+
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-users"></i></span> 
+
+                <select class="form-control input-lg"   id="editarPerfil" >
+                  
+                  <option value="" id="valorPerfil"></option>
+
+                  <option value="admin">Administrador</option>
+
+                  <option value="estudiante">Estudiante</option>
+
+                  
+
+                </select>
+
+              </div>
+
+            </div>
+<!--
+             ENTRADA PARA SUBIR FOTO -->
+<!--
+             <div class="form-group">
+              
+              <div class="panel">SUBIR FOTO</div>
+
+              <input type="file" id="nuevaFoto" name="nuevaFoto">
+
+              <p class="help-block">Peso máximo de la foto 200 MB</p>
+
+              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail" width="100px">
+
+            </div>-->
+
+          </div>
+
+        </div>
+
+<!--        =====================================
+        PIE DEL MODAL
+        ======================================-->
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+
+          <button type="button" class="btn btn-primary btnActualizarUsuario">Guardar</button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>

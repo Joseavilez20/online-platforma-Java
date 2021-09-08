@@ -1,0 +1,44 @@
+<%@page import="java.util.Random"%>
+<%@page import="entidades.Curso"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entidades.Usuario"%>
+<%@page import="controladores.ServletCurso"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<div class="col-lg-8 col-md-12">
+    <h3 class="text-bold">MIS CURSOS</h3>
+              <%!  ServletCurso sc=new  ServletCurso();
+               
+              %>
+              <% Usuario  u= (Usuario) request.getSession().getAttribute("user");
+              
+             ArrayList<Curso> cursos =sc.misCursos(u.getIdUser());%>
+                <div class="row">  
+                 <%for(int i=0; i<cursos.size(); i++){%>
+                           
+     <div class="card d-inline-block mx-1 mt-2  " style="width: 18rem;">
+          <%
+Random rand = new Random();
+int n = rand.nextInt(9) + 1;
+
+%>
+  <img class="card-img-top" src="img/<%=n%>.png" alt="Card image cap">
+  <div class="card-body">
+      <h5 class="titulo"><%=cursos.get(i).getNombre()%></h5>
+      
+      
+      
+    <p class="card-text"><%=cursos.get(i).getInstructor()%></p>
+    <p class="card-text"><%=cursos.get(i).getNivel()%> </p>
+    
+     <a href="ServletCurso?action=detalles&id=<%=cursos.get(i).getIdCurso()%>"  class="btn btn-primary">ir al Curso</a>
+  </div>
+</div>
+       <%}%>    
+                 
+          </div>
+      <!--cierra row listacursos-->
+     </div>
+        </div>
+        </div>
+  
+    

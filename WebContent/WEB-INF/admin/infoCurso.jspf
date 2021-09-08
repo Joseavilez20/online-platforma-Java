@@ -1,0 +1,174 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<div class="content-wrapper">
+
+  <section class="content-header">
+    
+    <h1>
+      
+      Detalles del curso
+    
+    </h1>
+
+    <ol class="breadcrumb">
+      
+      <li><a href="index.jsp"><i class="fa fa-dashboard"></i> Inicio</a></li>
+      <li><a href="verCursos"> cursos</a></li>
+      <li class="active">detalles</li>
+    
+    </ol>
+
+  </section>
+
+  <section class="content">
+
+    <div class="row">
+
+      <!--=====================================
+      EL FORMULARIO
+      ======================================-->
+      
+      <div class="col-lg-5 col-xs-12">
+        
+        <div class="box box-success">
+          
+          <div class="box-header with-border"></div>
+
+          <form role="form" metohd="post">
+
+            <div class="box-body">
+  
+              <div class="box">
+
+                <!--=====================================
+                ENTRADA DEL VENDEDOR
+                ======================================-->
+            
+                <div class="form-group">
+                
+                  <div class="input-group">
+                    
+                      <span class="input-group-addon "><b>CURSO</b></span>
+                    <span class="input-group-addon">${curso.nombre}</span>
+                  
+                    
+
+                  </div>
+
+                </div> 
+
+                <!--=====================================
+                ENTRADA DEL VENDEDOR
+                ======================================--> 
+
+                <div class="form-group">
+                  
+                  <div class="input-group">
+                  
+                      <span class="input-group-addon"><b>NIVEL</b></span>
+                      <span class="input-group-addon">${curso.nivel}</span>
+                      
+                    
+                    
+                  
+                  </div>
+                
+                </div>
+
+                <!--=====================================
+                ENTRADA DEL CLIENTE
+                ======================================--> 
+
+                <div class="form-group">
+                  
+                  <div class="input-group">
+                    
+                    <span class="input-group-addon"><b>INSTRUCTOR</b></span>
+                    
+                    
+                    
+                    <span class="input-group-addon">${curso.instructor}</span>
+                  
+                  </div>
+                
+                </div>
+
+      
+              </div>
+
+          </div>
+
+    <!--          <div class="box-footer">
+
+                <button type="submit" class="btn btn-primary pull-right">Guardar venta</button>
+
+              </div>-->
+
+        </form>
+
+        </div>
+            
+      </div>
+
+      <!--=====================================
+      LA TABLA DE ESTUDIANTES INSCRITOS
+      ======================================-->
+
+      <div class="col-lg-7 hidden-md hidden-sm hidden-xs">
+        
+        <div class="box box-warning">
+
+            <div class="box-header with-border text-center"><b>ESTUDIANTES INCRITOS</b></div>
+
+          <div class="box-body">
+            
+            <table class="table table-bordered table-striped dt-responsive tablas">
+              
+               <thead>
+
+                 <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Nombre</th>
+                  <th>Apellidos</th>
+                 
+                  <th>Acciones</th>
+                </tr>
+
+              </thead>
+
+              <tbody>
+                   <c:set var="cont" value="1"/>
+        <c:forEach items="${personas}" var="p">
+                <tr>
+                  <td>${cont}</td>                 
+                  <td>${p.nombre}</td>
+                  
+                  <td>${p.apellido}</td>       
+                                  
+                  <td>                 
+                    <div class="btn-group">
+                       <button class="btn btn-danger btnEliminaUsuarioCurso " idCurso="<c:out value="${curso.idCurso}"/>" idUsuario="<c:out value="${p.idUser}"/>"><i class="fas fa-trash-alt fa-xs"></i></button>
+
+                    </div>
+                  </td>
+                </tr>
+    <c:set var="cont" value="${cont+1}"/>
+
+       </c:forEach>
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+
+      </div>
+        
+
+    </div>
+   
+  </section>
+
+</div>
+

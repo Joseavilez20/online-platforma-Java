@@ -1,0 +1,67 @@
+ 
+<%@page import="java.util.Random"%>
+<%@page import="controladores.ServletPersona"%>
+<%@page import="entidades.Curso"%>
+<%@page import="controladores.ServletCurso"%>
+<%@page import="java.util.ArrayList"%>
+
+   <jsp:useBean id = "sc" class = "controladores.ServletCurso" > 
+     </jsp:useBean>
+ 
+  <%!
+      ServletPersona sp=new ServletPersona(); 
+  ServletCurso sc = new ServletCurso();
+  ArrayList<Curso> cursos;   
+ 
+ 
+  %> 
+
+ <!--c:set var = "arrayCursos" value = "{sc.mostrarCursos()}"/-->
+ 
+   
+      
+   
+ <!--c:forEach items="{cursos}" var="s"-->
+       <div  class="container-fluid">
+      <div class="col-lg-12 col-md-4">
+         
+         <h2 class="t text-dark font-weight-bold">Cursos de Hacking Ethico y Ciberseguridad</h2>
+          <p class="font-weight-normal">CURSOS NUEVOS</p>
+         <% 
+            
+           cursos = (ArrayList<Curso>)request.getAttribute("cursos");
+           
+          
+        //cursos=sc.mostrarCursos();
+    for(Curso curso : cursos){
+    
+   %>
+         
+ 
+   
+     <div class="card d-inline-block mx-3 mt-2 " style="width: 16rem;">
+       <%
+Random rand = new Random();
+int n = rand.nextInt(9) + 1;
+
+%>
+  <img class="card-img-top" src="img/<%=n%>.png" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="titulo"><%=curso.getNombre()%></h5>
+      <jsp:useBean id = "servletPersona" class = "controladores.ServletPersona" /> 
+      
+    <p class="card-text">Instructor:<%=curso.getInstructor()%></p>
+    <p class="card-text"><%=curso.getSubTitulo()%> </p>
+    
+    <a href="ServletCurso?action=detalles&id=<%=curso.getIdCurso()%>"  class="btn btn-primary">ir al Curso</a>
+  </div>
+         </div>
+
+     
+      
+    
+      <%}%>
+        
+      </div>
+       </div>
+  

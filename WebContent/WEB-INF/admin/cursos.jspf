@@ -1,0 +1,406 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<div class="content-wrapper">
+
+  <section class="content-header">
+    
+    <h1>
+      
+      Administrar cursos
+    
+    </h1>
+
+    <ol class="breadcrumb">
+      
+      <li><a href="index.jsp"> Home</a></li>
+      
+      <li class="active">Administrar cursos</li>
+    
+    </ol>
+
+  </section>
+
+  <section class="content">
+
+    <div class="box">
+
+      <div class="box-header with-border">
+  
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarCurso">
+          
+          Agregar curso
+
+        </button>
+       
+
+
+      </div>
+
+      <div class="box-body">
+    
+        
+       <table class="table table-bordered table-striped dt-responsive tablas">
+         
+        <thead>
+         
+         <tr>
+           
+           <th style="width:10px">#</th>
+           <th>Nombre</th>
+           <th>Subtitulo</th>
+           <th>Nivel</th>
+           <th>Tutor</th>
+           <th>Acciones</th>
+
+         </tr> 
+
+        </thead>
+
+        <tbody>
+         <c:set var="cont" value="1"/>
+        <c:forEach items="${cursos}" var="s">
+           
+          <tr>
+              <td><c:out value="${cont}"/></td>
+            <td><c:out value="${s.nombre}" /></td>
+            <td><c:out value="${s.subTitulo}" /></td>
+            <td><c:out value="${s.nivel}" /></td>    
+           
+            <td><c:out value="${s.instructor}" /></td>
+            
+            
+            <td>
+
+              <div class="btn-group">
+                  
+               <button class="btn btn-warning btnEditarCurso " data-toggle="modal" data-target="#modalEditarCurso" idCurso="<c:out value="${s.idCurso}"/>"><i class="fas fa-edit fa-xs"></i></button>
+               <button class="btn btn-danger btnEliminarCurso" idCurso="<c:out value="${s.idCurso}"/>"><i class="fas fa-trash-alt fa-xs"></i></button>
+               
+               <a class="btn btn-info" href="ServletCurso?action=infoCurso&idCurso=<c:out value="${s.idCurso}"/>" role="button"><i class="fas fa-info-circle fa-xs"></i></a> 
+
+               <a class="btn btn-primary" href="ServletCurso?action=addContenido&idCurso=<c:out value="${s.idCurso}"/>" role="button"><i class="fas fa-file-medical fa-xs"></i></a> 
+
+              </div>  
+
+            </td>
+
+          </tr>
+
+           <c:set var="cont" value="${cont+1}"/>
+             
+    </c:forEach>
+        </tbody>
+
+       </table>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+<!--=====================================
+MODAL AGREGAR CURSO
+======================================-->
+
+<div id="modalAgregarCurso" class="modal fade" role="dialog" >
+  
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <form role="form" method="post" ><!--enctype="multipart/form-data"-->
+
+<!--          =====================================
+        CABEZA DEL MODAL
+        ======================================-->
+
+        <div class="modal-header" style="background:#3c8dbc; color:white">
+
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <h4 class="modal-title">Agregar curso</h4>
+
+        </div>
+
+<!--        =====================================
+        CUERPO DEL MODAL
+        ======================================-->
+
+        <div class="modal-body">
+
+          <div class="box-body">
+
+<!--             ENTRADA PARA EL NOMBRE -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="nuevoNombre"  id="nuevoNombre" placeholder="Ingresar nombre" required>
+
+              </div>
+
+            </div>
+
+<!--             ENTRADA PARA EL USUARIO -->
+
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-edit"></i></span> 
+
+                <input type="text" class="form-control input-lg" id="nuevoSubtitulo" name="nuevoSubtitulo" placeholder="Ingresar subtitulo" >
+
+              </div>
+
+            </div>
+
+<!--             ENTRADA PARA EL NIVEL-->
+  <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-file-medical"></i></span> 
+
+                <select class="form-control input-lg" name="nuevoNivel" id="nuevoNivel">
+                  
+                  <option value="">Selecionar nivel</option>
+
+                  <option value="basico">Basico</option>
+                  <option value="medio">Medio</option>
+                  <option value="avanzado">Avanzado</option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+<!--             ENTRADA PARA SELECCIONAR EL INSTRUCTOR -->
+
+
+
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-users"></i></span> 
+
+                <input type="text" class="form-control input-lg" id="nuevoInstructor" name="nuevoInstructor" placeholder="Ingresar Instructor" >
+
+              </div>
+
+            </div>
+
+
+<!--             ENTRADA PARA LA DESCRIPCION -->
+
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-edit"></i></span> 
+
+                <textarea type="text" class="form-control input-lg"  id="nuevaDescripcion"  name="nuevaDescripcion" placeholder="Descripcion" ></textarea>
+
+              </div>
+
+            </div>
+        <span class="msj"></span>
+    
+<!--
+             ENTRADA PARA SUBIR FOTO -->
+
+<!--             <div class="form-group">
+              
+              <div class="panel">SUBIR FOTO</div>
+
+              <input type="file" id="nuevaFoto" name="nuevaFoto">
+
+              <p class="help-block">Peso máximo de la foto 200 MB</p>
+
+              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail" width="100px">
+
+            </div>-->
+
+          </div>
+
+        </div>
+
+<!--        =====================================
+        PIE DEL MODAL
+        ======================================-->
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+
+          <button type="button" class="btn btn-primary btnAgregarCurso">Guardar curso</button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+                    
+
+<!--=====================================
+MODAL EDITAR CURSO
+======================================-->
+
+<div id="modalEditarCurso" class="modal fade" role="dialog">
+  
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <form role="form" method="post"> <!-- enctype="multipart/form-data"-->
+
+<!--          =====================================
+        CABEZA DEL MODAL
+        ======================================-->
+
+        <div class="modal-header" style="background:#3c8dbc; color:white">
+
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <h4 class="modal-title">Editar curso</h4>
+
+        </div>
+
+<!--        =====================================
+        CUERPO DEL MODAL
+        ======================================-->
+
+        <div class="modal-body">
+
+          <div class="box-body">
+
+<!--             ENTRADA PARA EL NOMBRE -->
+            
+            <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-user"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="editarNombre" id="editarNombre" required>
+                <input type="hidden"  id="idCurso" name="idCurso">
+
+              </div>
+
+            </div>
+
+<!--             ENTRADA PARA EL USUARIO -->
+
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-key"></i></span> 
+
+                <input type="text" class="form-control input-lg" name="editarSubtitulo" id="editarSubtitulo" >
+
+              </div>
+
+            </div>
+
+<!--             ENTRADA PARA EL NIVEL-->
+  <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-users"></i></span> 
+
+                <select class="form-control input-lg"   id="editarNivel">
+                  
+                  <option value=""  id="valor"></option>
+
+                  <option value="basico">Basico</option>
+                  <option value="medio">Medio</option>
+                  <option value="avanzado">Avanzado</option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+<!--             ENTRADA PARA SELECCIONAR EL INSTRUCTOR -->
+
+
+
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-key"></i></span> 
+
+                <input type="text" class="form-control input-lg" id="editarInstructor" name="editarInstructor"  >
+
+              </div>
+
+            </div>
+
+
+<!--             ENTRADA PARA LA DESCRIPCION -->
+
+             <div class="form-group">
+              
+              <div class="input-group">
+              
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span> 
+
+                <textarea type="text" class="form-control input-lg" name="editarDescripcion" id="editarDescripcion" ></textarea>
+
+              </div>
+
+            </div>
+<!--
+             ENTRADA PARA SUBIR FOTO -->
+
+<!--             <div class="form-group">
+              
+              <div class="panel">SUBIR FOTO</div>
+
+              <input type="file" id="nuevaFoto" name="nuevaFoto">
+
+              <p class="help-block">Peso máximo de la foto 200 MB</p>
+
+              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail" width="100px">
+
+            </div>-->
+
+          </div>
+
+        </div>
+
+<!--        =====================================
+        PIE DEL MODAL
+        ======================================-->
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+
+          <button type="submit" class="btn btn-primary btnActualizar" >Modificar curso</button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
